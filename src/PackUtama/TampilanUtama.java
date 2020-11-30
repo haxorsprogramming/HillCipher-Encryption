@@ -8,7 +8,7 @@ package PackUtama;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
+import javax.swing.*;
 /**
  *
  * @author Aditia Darma Nst
@@ -24,7 +24,7 @@ public class TampilanUtama extends javax.swing.JFrame {
         Dimension layar = Toolkit.getDefaultToolkit().getScreenSize();
         int x = layar.width / 2 - this.getSize().width / 2;
         int y = layar.height / 2 - this.getSize().height / 2;
-        
+        setResizable(false);
         this.setLocation(x,y);
     }
 
@@ -37,42 +37,63 @@ public class TampilanUtama extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        txtLabelUtama = new javax.swing.JLabel();
         btnEnkripsiAtc = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Source Sans Pro", 1, 24)); // NOI18N
-        jLabel1.setText("Aplikasi Enkripsi & Deksripsi File");
+        txtLabelUtama.setFont(new java.awt.Font("Source Sans Pro", 1, 24)); // NOI18N
+        txtLabelUtama.setText("Aplikasi Enkripsi & Deksripsi File");
 
         btnEnkripsiAtc.setFont(new java.awt.Font("Source Sans Pro", 1, 18)); // NOI18N
         btnEnkripsiAtc.setText("Enkripsi File");
+        btnEnkripsiAtc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnkripsiAtcActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Source Sans Pro", 1, 18)); // NOI18N
+        jButton1.setText("Deksripsi File");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(237, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(219, 219, 219))
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(86, 86, 86)
                 .addComponent(btnEnkripsiAtc, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(144, 144, 144))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(249, 249, 249)
+                .addComponent(txtLabelUtama, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(249, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(120, 120, 120)
-                .addComponent(btnEnkripsiAtc, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addComponent(txtLabelUtama)
+                .addGap(132, 132, 132)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEnkripsiAtc, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(185, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEnkripsiAtcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnkripsiAtcActionPerformed
+        // TODO add your handling code here:
+        JFrame EnkripsiForm = new EnkripsiForm();
+        EnkripsiForm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnEnkripsiAtcActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,6 +125,7 @@ public class TampilanUtama extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new TampilanUtama().setVisible(true);
             }
         });
@@ -111,6 +133,7 @@ public class TampilanUtama extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnkripsiAtc;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel txtLabelUtama;
     // End of variables declaration//GEN-END:variables
 }
