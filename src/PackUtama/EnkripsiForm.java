@@ -5,17 +5,31 @@
  */
 package PackUtama;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.*;
+
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileSystemView;
+import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
- * @author Aditia Darma Nst
+ * @author Zahrotun Nisa
  */
 public class EnkripsiForm extends javax.swing.JFrame {
-
+    static JLabel namaFile; 
     /**
      * Creates new form EnkripsiForm
      */
     public EnkripsiForm() {
         initComponents();
+        
+        Dimension layar = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = layar.width / 2 - this.getSize().width / 2;
+        int y = layar.height / 2 - this.getSize().height / 2;
+        setResizable(false);
+        this.setLocation(x,y);
     }
 
     /**
@@ -27,31 +41,102 @@ public class EnkripsiForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser1 = new javax.swing.JFileChooser();
+        jFileChooser2 = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
+        btnPilihFile = new javax.swing.JButton();
+        txtNamaFile = new javax.swing.JLabel();
+        txtKunciEnkripsi = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Source Sans Pro", 1, 18)); // NOI18N
         jLabel1.setText("Form enkripsi");
+
+        btnPilihFile.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnPilihFile.setText("Pilih File");
+        btnPilihFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPilihFileMouseClicked(evt);
+            }
+        });
+
+        txtNamaFile.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtNamaFile.setText("Belum ada file dipilih");
+
+        jLabel2.setText("Masukkan kunci enkripsi");
+
+        jButton1.setText("Enkripsi File");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(279, 279, 279)
-                .addComponent(jLabel1)
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addGap(137, 137, 137)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtNamaFile)
+                        .addGap(115, 115, 115)
+                        .addComponent(btnPilihFile, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(142, 142, 142)))
+                .addContainerGap(107, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtKunciEnkripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(203, 203, 203))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(237, 237, 237))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(237, 237, 237))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(281, Short.MAX_VALUE))
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPilihFile, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNamaFile))
+                .addGap(52, 52, 52)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtKunciEnkripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPilihFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPilihFileMouseClicked
+        // TODO add your handling code here:
+        String v;
+        namaFile = new JLabel();
+        JFileChooser j = new JFileChooser("d:", FileSystemView.getFileSystemView()); 
+        j.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("DOC or DOCX", "docx", "doc");
+        j.setDialogTitle("Pilih dokumen ..");
+        j.addChoosableFileFilter(filter);
+        int returnValue = j.showSaveDialog(null);
+        if(returnValue == JFileChooser.APPROVE_OPTION){
+            File selectedFile = j.getSelectedFile();
+            v = selectedFile.getName();
+            namaFile.setText(v);
+            txtNamaFile.setText(v);
+            System.out.println(selectedFile.getAbsolutePath());
+        }
+    }//GEN-LAST:event_btnPilihFileMouseClicked
 
     /**
      * @param args the command line arguments
@@ -89,6 +174,13 @@ public class EnkripsiForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPilihFile;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JFileChooser jFileChooser2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPasswordField txtKunciEnkripsi;
+    private javax.swing.JLabel txtNamaFile;
     // End of variables declaration//GEN-END:variables
 }
