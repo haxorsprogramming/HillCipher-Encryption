@@ -10,7 +10,6 @@ import utils.CryptoUtils;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-
 import javax.swing.*;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -196,15 +195,19 @@ public class EnkripsiForm extends javax.swing.JFrame {
                     String fromFile = filePath;
                     String toFile = "D:/Tempat_File/Enkripsi/"+namaFileBersih+"_enkripsi"+".chiper";
                     Path pathFileKunci = Paths.get("D:/Tempat_File/Kunci_Enkripsi/"+namaFileBersih+".key");
+                    String pathFileKey = "D:/Tempat_File/Kunci_Enkripsi/test_enc.txt";
                     String content = "1234";
-                    String password = kunciEnkripsi;
-                    
-                    try {
-                        EnkripsiForm.encryptFile(fromFile, toFile, password);
-                    } catch (Exception ex) {
-                        Logger.getLogger(EnkripsiForm.class.getName()).log(Level.SEVERE, null, ex);
+                    String password = "password123";
+                    String fromFile2 = "D:/Tempat_File/Kunci_Enkripsi/test.txt";
+                                   
+                    {
+                        try {
+                            EnkripsiForm.encryptFile(fromFile2, pathFileKey, password);
+                        } catch (Exception ex) {
+                            Logger.getLogger(EnkripsiForm.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
-                    
+                               
                     try{
                         copyFileNIO(fromFile, toFile);
                     }catch(IOException e){
