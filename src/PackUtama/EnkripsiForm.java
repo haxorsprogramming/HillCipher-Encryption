@@ -5,19 +5,41 @@
  */
 package PackUtama;
 
+import utils.CryptoUtils;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
+
 import javax.swing.*;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.GCMParameterSpec;
 
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+
 import java.util.List;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.io.*;
+import java.security.Key;
+import java.security.MessageDigest;
+import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
@@ -28,7 +50,13 @@ import javax.swing.JOptionPane;
  * @author Zahrotun Nisa
  */
 public class EnkripsiForm extends javax.swing.JFrame {
-    private static final String NEW_LINE = System.lineSeparator();
+    private static final String ENCRYPT_ALGO = "AES/GCM/NoPadding";
+    private static final int TAG_LENGTH_BIT = 128; // must be one of {128, 120, 112, 104, 96}
+    private static final int IV_LENGTH_BYTE = 12;
+    private static final int SALT_LENGTH_BYTE = 16;
+    
+    private static final Charset UTF_8 = StandardCharsets.UTF_8;
+    
     static JLabel namaFile; 
     String filePath;
     /**
@@ -158,6 +186,7 @@ public class EnkripsiForm extends javax.swing.JFrame {
         String kunciEnkripsi = txtKunciEnkripsi.getText();
         String namaFile = txtNamaFile.getText();
         String namaFileBersih = namaFile.replace(".docx", "");
+        
         if(kunciEnkripsi.length() < 4){
             JOptionPane.showMessageDialog(null, "Kunci harus lebih dari 3 karakter");
         }else{
@@ -166,6 +195,15 @@ public class EnkripsiForm extends javax.swing.JFrame {
                 case JOptionPane.YES_OPTION: 
                     String fromFile = filePath;
                     String toFile = "D:/Tempat_File/Enkripsi/"+namaFileBersih+"_enkripsi"+".chiper";
+                    Path pathFileKunci = Paths.get("D:/Tempat_File/Kunci_Enkripsi/"+namaFileBersih+".key");
+                    String content = "1234";
+                    String password = kunciEnkripsi;
+                    
+                    try {
+                        EnkripsiForm.encryptFile(fromFile, toFile, password);
+                    } catch (Exception ex) {
+                        Logger.getLogger(EnkripsiForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     
                     try{
                         copyFileNIO(fromFile, toFile);
@@ -252,7 +290,89 @@ public class EnkripsiForm extends javax.swing.JFrame {
         Files.copy(fromFile, toFile, options);*/
 
     }
+   
+    public static byte[] encrypt(byte[] pText, String password) throws Exception {
 
+        // 16 bytes salt
+        byte[] salt = CryptoUtils.getRandomNonce(SALT_LENGTH_BYTE);
+
+        // GCM recommended 12 bytes iv?
+        byte[] iv = CryptoUtils.getRandomNonce(IV_LENGTH_BYTE);
+
+        // secret key from password
+        SecretKey aesKeyFromPassword = CryptoUtils.getAESKeyFromPassword(password.toCharArray(), salt);
+
+        Cipher cipher = Cipher.getInstance(ENCRYPT_ALGO);
+
+        // ASE-GCM needs GCMParameterSpec
+        cipher.init(Cipher.ENCRYPT_MODE, aesKeyFromPassword, new GCMParameterSpec(TAG_LENGTH_BIT, iv));
+
+        byte[] cipherText = cipher.doFinal(pText);
+
+        // prefix IV and Salt to cipher text
+        byte[] cipherTextWithIvSalt = ByteBuffer.allocate(iv.length + salt.length + cipherText.length)
+                .put(iv)
+                .put(salt)
+                .put(cipherText)
+                .array();
+
+        return cipherTextWithIvSalt;
+
+    }
+    
+    // we need the same password, salt and iv to decrypt it
+    private static byte[] decrypt(byte[] cText, String password) throws Exception {
+
+        // get back the iv and salt that was prefixed in the cipher text
+        ByteBuffer bb = ByteBuffer.wrap(cText);
+
+        byte[] iv = new byte[12];
+        bb.get(iv);
+
+        byte[] salt = new byte[16];
+        bb.get(salt);
+
+        byte[] cipherText = new byte[bb.remaining()];
+        bb.get(cipherText);
+
+        // get back the aes key from the same password and salt
+        SecretKey aesKeyFromPassword = CryptoUtils.getAESKeyFromPassword(password.toCharArray(), salt);
+
+        Cipher cipher = Cipher.getInstance(ENCRYPT_ALGO);
+
+        cipher.init(Cipher.DECRYPT_MODE, aesKeyFromPassword, new GCMParameterSpec(TAG_LENGTH_BIT, iv));
+
+        byte[] plainText = cipher.doFinal(cipherText);
+
+        return plainText;
+
+    }
+    
+    public static void encryptFile(String fromFile, String toFile, String password) throws Exception {
+
+        // read a normal txt file
+        byte[] fileContent = Files.readAllBytes(Paths.get(ClassLoader.getSystemResource(fromFile).toURI()));
+
+        // encrypt with a password
+        byte[] encryptedText = EnkripsiForm.encrypt(fileContent, password);
+
+        // save a file
+        Path path = Paths.get(toFile);
+
+        Files.write(path, encryptedText);
+
+    }
+
+    public static byte[] decryptFile(String fromEncryptedFile, String password) throws Exception {
+
+        // read a file
+        byte[] fileContent = Files.readAllBytes(Paths.get(fromEncryptedFile));
+
+        return EnkripsiForm.decrypt(fileContent, password);
+
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnkripsiFile;
     private javax.swing.JButton btnPilihFile;
