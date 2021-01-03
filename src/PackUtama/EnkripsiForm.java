@@ -10,15 +10,27 @@ import java.awt.Toolkit;
 import javax.swing.*;
 
 import java.io.File;
+import java.io.BufferedReader;
+import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.List;
+
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Zahrotun Nisa
  */
 public class EnkripsiForm extends javax.swing.JFrame {
+    private static final String NEW_LINE = System.lineSeparator();
     static JLabel namaFile; 
+    String filePath;
     /**
      * Creates new form EnkripsiForm
      */
@@ -48,7 +60,7 @@ public class EnkripsiForm extends javax.swing.JFrame {
         txtNamaFile = new javax.swing.JLabel();
         txtKunciEnkripsi = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnEnkripsiFile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,7 +80,12 @@ public class EnkripsiForm extends javax.swing.JFrame {
 
         jLabel2.setText("Masukkan kunci enkripsi");
 
-        jButton1.setText("Enkripsi File");
+        btnEnkripsiFile.setText("Enkripsi File");
+        btnEnkripsiFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEnkripsiFileMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,14 +93,9 @@ public class EnkripsiForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(137, 137, 137)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtNamaFile)
-                        .addGap(115, 115, 115)
-                        .addComponent(btnPilihFile, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(142, 142, 142)))
+                .addComponent(txtNamaFile)
+                .addGap(115, 115, 115)
+                .addComponent(btnPilihFile, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(107, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -92,11 +104,13 @@ public class EnkripsiForm extends javax.swing.JFrame {
                         .addComponent(txtKunciEnkripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(203, 203, 203))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(btnEnkripsiFile, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(237, 237, 237))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(237, 237, 237))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(233, 233, 233))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +126,7 @@ public class EnkripsiForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtKunciEnkripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEnkripsiFile, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(72, Short.MAX_VALUE))
         );
 
@@ -125,7 +139,7 @@ public class EnkripsiForm extends javax.swing.JFrame {
         namaFile = new JLabel();
         JFileChooser j = new JFileChooser("d:", FileSystemView.getFileSystemView()); 
         j.setAcceptAllFileFilterUsed(false);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("DOC or DOCX", "docx", "doc");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("DOCX", "docx");
         j.setDialogTitle("Pilih dokumen ..");
         j.addChoosableFileFilter(filter);
         int returnValue = j.showSaveDialog(null);
@@ -135,8 +149,39 @@ public class EnkripsiForm extends javax.swing.JFrame {
             namaFile.setText(v);
             txtNamaFile.setText(v);
             System.out.println(selectedFile.getAbsolutePath());
+            filePath = selectedFile.getAbsolutePath();
         }
     }//GEN-LAST:event_btnPilihFileMouseClicked
+
+    private void btnEnkripsiFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEnkripsiFileMouseClicked
+        // TODO add your handling code here:
+        String kunciEnkripsi = txtKunciEnkripsi.getText();
+        String namaFile = txtNamaFile.getText();
+        String namaFileBersih = namaFile.replace(".docx", "");
+        if(kunciEnkripsi.length() < 4){
+            JOptionPane.showMessageDialog(null, "Kunci harus lebih dari 3 karakter");
+        }else{
+            int jawab = JOptionPane.showConfirmDialog(this, "Proses enkripsi file");
+            switch(jawab){
+                case JOptionPane.YES_OPTION: 
+                    String fromFile = filePath;
+                    String toFile = "D:/Tempat_File/Enkripsi/"+namaFileBersih+"_enkripsi"+".chiper";
+                    
+                    try{
+                        copyFileNIO(fromFile, toFile);
+                    }catch(IOException e){
+                        e.printStackTrace();
+                    }
+                    
+                    break;
+                case JOptionPane.NO_OPTION:
+                    JOptionPane.showMessageDialog(this, "Kamu menjawab tidak");
+                    break;
+                case JOptionPane.CANCEL_OPTION:
+                    JOptionPane.showMessageDialog(this, "Kamu mejawab batal");
+            }
+        }
+    }//GEN-LAST:event_btnEnkripsiFileMouseClicked
 
     /**
      * @param args the command line arguments
@@ -172,10 +217,45 @@ public class EnkripsiForm extends javax.swing.JFrame {
             }
         });
     }
+    
+    public static void copyFileNIO(String from, String to) throws IOException {
+
+        Path fromFile = Paths.get(from);
+        Path toFile = Paths.get(to);
+
+        // if fromFile doesn't exist, Files.copy throws NoSuchFileException
+        if (Files.notExists(fromFile)) {
+            System.out.println("File doesn't exist? " + fromFile);
+            return;
+        }
+
+        // if toFile folder doesn't exist, Files.copy throws NoSuchFileException
+        // if toFile parent folder doesn't exist, create it.
+        Path parent = toFile.getParent();
+        if(parent!=null){
+            if(Files.notExists(parent)){
+                Files.createDirectories(parent);
+            }
+        }
+
+        // default - if toFile exist, throws FileAlreadyExistsException
+        Files.copy(fromFile, toFile);
+
+        // if toFile exist, replace it.
+        // Files.copy(fromFile, toFile, StandardCopyOption.REPLACE_EXISTING);
+
+        // multiple StandardCopyOption
+        /*CopyOption[] options = { StandardCopyOption.REPLACE_EXISTING,
+                StandardCopyOption.COPY_ATTRIBUTES,
+                LinkOption.NOFOLLOW_LINKS };
+
+        Files.copy(fromFile, toFile, options);*/
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEnkripsiFile;
     private javax.swing.JButton btnPilihFile;
-    private javax.swing.JButton jButton1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFileChooser jFileChooser2;
     private javax.swing.JLabel jLabel1;

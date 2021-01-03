@@ -30,7 +30,7 @@
               <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
               <Component id="btnEnkripsiAtc" min="-2" pref="212" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="199" max="-2" attributes="0"/>
+              <Component id="btnDeskripsiFileAtc" min="-2" pref="199" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
@@ -56,7 +56,7 @@
               <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnEnkripsiAtc" alignment="3" min="-2" pref="89" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" pref="98" max="-2" attributes="0"/>
+                  <Component id="btnDeskripsiFileAtc" alignment="3" min="-2" pref="98" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="109" max="32767" attributes="0"/>
               <Component id="jButton2" min="-2" pref="65" max="-2" attributes="0"/>
@@ -85,7 +85,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEnkripsiAtcActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnDeskripsiFileAtc">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Source Sans Pro" size="18" style="1"/>

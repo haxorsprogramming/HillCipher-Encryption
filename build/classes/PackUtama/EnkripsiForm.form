@@ -31,17 +31,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="137" pref="137" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="txtNamaFile" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
-                      <Component id="btnPilihFile" min="-2" pref="133" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <Component id="txtNamaFile" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
+              <Component id="btnPilihFile" min="-2" pref="133" max="-2" attributes="0"/>
               <EmptySpace pref="107" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
@@ -52,12 +44,15 @@
                       <EmptySpace min="-2" pref="203" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnEnkripsiFile" min="-2" pref="116" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="237" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jButton1" min="-2" pref="116" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="237" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="233" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -78,7 +73,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtKunciEnkripsi" min="-2" pref="37" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="41" max="-2" attributes="0"/>
+              <Component id="btnEnkripsiFile" min="-2" pref="41" max="-2" attributes="0"/>
               <EmptySpace pref="72" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -119,10 +114,13 @@
         <Property name="text" type="java.lang.String" value="Masukkan kunci enkripsi"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnEnkripsiFile">
       <Properties>
         <Property name="text" type="java.lang.String" value="Enkripsi File"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnEnkripsiFileMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

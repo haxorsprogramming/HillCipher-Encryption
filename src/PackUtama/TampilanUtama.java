@@ -39,7 +39,7 @@ public class TampilanUtama extends javax.swing.JFrame {
 
         txtLabelUtama = new javax.swing.JLabel();
         btnEnkripsiAtc = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnDeskripsiFileAtc = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,8 +56,8 @@ public class TampilanUtama extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Source Sans Pro", 1, 18)); // NOI18N
-        jButton1.setText("Deksripsi File");
+        btnDeskripsiFileAtc.setFont(new java.awt.Font("Source Sans Pro", 1, 18)); // NOI18N
+        btnDeskripsiFileAtc.setText("Deksripsi File");
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton2.setText("Keluar");
@@ -75,7 +75,7 @@ public class TampilanUtama extends javax.swing.JFrame {
                 .addGap(86, 86, 86)
                 .addComponent(btnEnkripsiAtc, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDeskripsiFileAtc, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(144, 144, 144))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,7 +95,7 @@ public class TampilanUtama extends javax.swing.JFrame {
                 .addGap(132, 132, 132)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEnkripsiAtc, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDeskripsiFileAtc, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -153,8 +153,8 @@ public class TampilanUtama extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDeskripsiFileAtc;
     private javax.swing.JButton btnEnkripsiAtc;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel txtLabelUtama;
     // End of variables declaration//GEN-END:variables
