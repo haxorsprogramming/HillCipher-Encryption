@@ -41,9 +41,13 @@ public class TampilanUtama extends javax.swing.JFrame {
         btnEnkripsiAtc = new javax.swing.JButton();
         btnDeskripsiFileAtc = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        txtLabelUtama1 = new javax.swing.JLabel();
+        txtLabelUtama2 = new javax.swing.JLabel();
+        txtLabelUtama3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setIconImages(null);
 
         txtLabelUtama.setFont(new java.awt.Font("Source Sans Pro", 1, 24)); // NOI18N
         txtLabelUtama.setText("Aplikasi Enkripsi & Deksripsi File");
@@ -58,14 +62,33 @@ public class TampilanUtama extends javax.swing.JFrame {
 
         btnDeskripsiFileAtc.setFont(new java.awt.Font("Source Sans Pro", 1, 18)); // NOI18N
         btnDeskripsiFileAtc.setText("Deksripsi File");
+        btnDeskripsiFileAtc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeskripsiFileAtcActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton2.setText("Keluar");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
             }
         });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        txtLabelUtama1.setFont(new java.awt.Font("Source Sans Pro", 1, 16)); // NOI18N
+        txtLabelUtama1.setText("Aplikasi Enkripsi & Deksripsi File Menggunakan Hill Cipher");
+
+        txtLabelUtama2.setFont(new java.awt.Font("Source Sans Pro", 0, 14)); // NOI18N
+        txtLabelUtama2.setText("Zahrotun Nisa - Program Studi Ilmu Komputer, Fakultas Sains dan Teknologi");
+
+        txtLabelUtama3.setFont(new java.awt.Font("Source Sans Pro", 0, 14)); // NOI18N
+        txtLabelUtama3.setText("Universitas Islam Negeri Sumatera Utara");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,14 +100,21 @@ public class TampilanUtama extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDeskripsiFileAtc, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(144, 144, 144))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(249, 249, 249)
                         .addComponent(txtLabelUtama, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(365, 365, 365)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtLabelUtama2, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLabelUtama1, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLabelUtama3, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(249, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -96,8 +126,17 @@ public class TampilanUtama extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEnkripsiAtc, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDeskripsiFileAtc, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addComponent(txtLabelUtama1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(txtLabelUtama3)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtLabelUtama2)))
                 .addContainerGap())
         );
 
@@ -115,6 +154,17 @@ public class TampilanUtama extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void btnDeskripsiFileAtcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeskripsiFileAtcActionPerformed
+        // TODO add your handling code here:
+        JFrame DeksripsiForm = new DeksripsiForm();
+        DeksripsiForm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnDeskripsiFileAtcActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,5 +207,8 @@ public class TampilanUtama extends javax.swing.JFrame {
     private javax.swing.JButton btnEnkripsiAtc;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel txtLabelUtama;
+    private javax.swing.JLabel txtLabelUtama1;
+    private javax.swing.JLabel txtLabelUtama2;
+    private javax.swing.JLabel txtLabelUtama3;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,6 +18,8 @@ import javax.crypto.spec.GCMParameterSpec;
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -44,6 +46,8 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author Zahrotun Nisa
@@ -199,17 +203,18 @@ public class EnkripsiForm extends javax.swing.JFrame {
                     String content = "1234";
                     String password = "password123";
                     String fromFile2 = "D:/Tempat_File/Kunci_Enkripsi/test.txt";
-                                   
-                    {
-                        try {
-                            EnkripsiForm.encryptFile(fromFile2, pathFileKey, password);
-                        } catch (Exception ex) {
-                            Logger.getLogger(EnkripsiForm.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                               
+                                         
+//                    try{
+//                        copyFileNIO(fromFile, toFile);
+//                    }catch(IOException e){
+//                        e.printStackTrace();
+//                    }
+                    String fileContent = "Belajar membaca dan menulis file di Java!";
                     try{
-                        copyFileNIO(fromFile, toFile);
+                        FileWriter filewriter = new FileWriter(pathFileKey);
+                        filewriter.write(fileContent);
+                        filewriter.close();
+                        System.out.println("Selesai");
                     }catch(IOException e){
                         e.printStackTrace();
                     }
